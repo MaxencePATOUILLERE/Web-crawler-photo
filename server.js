@@ -1,10 +1,13 @@
-var http = require('http');
+const express = require('express');
+const app = express();
+const port = 3000;
 
-var server = http.createServer(function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end('Hello World!');
+app.use(express.static('static'));  // Serve static files from the 'static' directory
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/showData.html');
 });
 
-server.listen(3000, function() {
-    console.log('Server is listening on port 3000');
+app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
 });
