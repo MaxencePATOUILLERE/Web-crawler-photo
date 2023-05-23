@@ -38,7 +38,10 @@ async function crawl(page, url) {
 
     await crawl(page, 'https://islanto.wordpress.com/'); // Remplacez par l'URL du site que vous souhaitez crawler
 
-    fs.writeFileSync('image_urls.txt', urls.join('\n'));
+    if (!fs.existsSync('static')){
+        fs.mkdirSync('static');
+    }
+    fs.writeFileSync('static/image_urls.txt', urls.join('\n'));
 
     await browser.close();
 })();
