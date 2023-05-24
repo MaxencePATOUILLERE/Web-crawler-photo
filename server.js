@@ -11,3 +11,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
 });
+
+// TODO : link database to the result of crawling
+// TODO : add input to chang the site to crawl
