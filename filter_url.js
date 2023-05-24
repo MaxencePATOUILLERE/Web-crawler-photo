@@ -38,5 +38,3 @@ function isUrl(str) {
     return urlRegex.test(str);
 }
 module.exports = removeDuplicateUrls;
-// Appel de la fonction avec le nom du fichier en argument
-removeDuplicateUrls('crawling_responce/image_urls.txt');

@@ -4,12 +4,20 @@ const removeDuplicateUrls = require('./filter_url.js');
 let urls = [];
 let crawledUrls = [];
 
+let pageCount = 0;
+
 async function crawl(page, url) {
-    if (crawledUrls.includes(url)) {
+    if (pageCount >= 40) {
         return;
     }
 
-    crawledUrls.push(url);
+    if (!crawledUrls.includes(url)) {
+        crawledUrls.push(url);
+        // Increment the page counter.
+        pageCount++;
+    } else {
+        return;
+    }
 
     console.log(`Crawling ${url}`);
 
@@ -41,10 +49,10 @@ async function crawlPage(url) {
     if (!fs.existsSync('crawling_responce')){
         fs.mkdirSync('crawling_responce');
     }
-    fs.writeFileSync('crawling_responce/image_urls.txt', urls.join('\n'));
-    removeDuplicateUrls('crawling_responce/image_urls.txt');
+    await fs.writeFileSync('crawling_responce/image_urls.txt', urls.join('\n'));
+    await removeDuplicateUrls('crawling_responce/image_urls.txt');
     await browser.close();
+    pageCount = 0;
 }
 
-// Pour l'utiliser:
-crawlPage('https://islanto.wordpress.com/'); // Remplacez par l'URL du site que vous souhaitez crawler
+module.exports = crawlPage;
