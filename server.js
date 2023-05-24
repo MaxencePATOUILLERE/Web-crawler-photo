@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.use(express.static('static'));  // Serve static files from the 'static' directory
+app.use(express.static('crawling_responce'));  // Serve crawling_responce files from the 'crawling_responce' directory
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/showData.html');
+    res.sendFile(__dirname + '/home.html');
 });
 
 app.listen(port, () => {

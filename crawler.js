@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-
+const removeDuplicateUrls = require('./filter_url.js');
 let urls = [];
 let crawledUrls = [];
 
@@ -32,16 +32,19 @@ async function crawl(page, url) {
     }
 }
 
-(async () => {
+async function crawlPage(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    await crawl(page, 'https://islanto.wordpress.com/'); // Remplacez par l'URL du site que vous souhaitez crawler
+    await crawl(page, url); // Maintenant, l'URL est un paramètre
 
-    if (!fs.existsSync('static')){
-        fs.mkdirSync('static');
+    if (!fs.existsSync('crawling_responce')){
+        fs.mkdirSync('crawling_responce');
     }
-    fs.writeFileSync('static/image_urls.txt', urls.join('\n'));
-
+    fs.writeFileSync('crawling_responce/image_urls.txt', urls.join('\n'));
+    removeDuplicateUrls('crawling_responce/image_urls.txt');
     await browser.close();
-})();
+}
+
+// Pour l'utiliser:
+crawlPage('https://islanto.wordpress.com/'); // Remplacez par l'URL du site que vous souhaitez crawler
