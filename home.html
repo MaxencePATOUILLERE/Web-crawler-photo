@@ -1,14 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Entrez une URL</title>
+    <meta charset="UTF-8">
+    <title>WebCrawler Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+        #container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        #url {
+            display: block;
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 18px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        #submit-button {
+            display: block;
+            width: 100%;
+            height: 60px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            box-sizing: border-box;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #submit-button:hover {
+            background-color: #45a049;
+        }
+        #progress-bar-container {
+            width: 100%;
+            background-color: #ddd;
+            padding: 2px;
+            margin-top: 20px;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #4CAF50;
+        }
+    </style>
 </head>
 <body>
-<h1>Entrez une URL</h1>
-<form action="" method="get">
-    <input type="url" id="url" name="url" placeholder="https://www.example.com">
-    <input type="submit" value="Crawler">
-</form>
+<div id="container">
+    <h1>WebCrawler Interface</h1>
+    <form action="" method="get">
+        <input type="url" id="url" name="url" placeholder="https://www.example.com" required>
+        <input type="submit" value="Crawler" id="submit-button">
+    </form>
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
 
+    socket.on('progress', (data) => {
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.style.width = `${data.value * 100}%`;
+    });
+
+    socket.on('finished', () => {
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.style.width = '100%';
+    });
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const url = document.querySelector('#url').value;
+        if(url) {
+            window.location.href = `/?url=${encodeURIComponent(url)}`;
+        } else {
+            alert('Please enter a valid URL');
+        }
+    });
+</script>
 </body>
 </html>
