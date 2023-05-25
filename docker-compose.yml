@@ -1,0 +1,21 @@
+version: '3'
+services:
+  
+db:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://user:password@db/mydatabase
+    depends_on:
+      - db
+volumes:
+  postgres_data:

@@ -1,6 +1,9 @@
 const express = require('express');
+const {getEnvironmentData} = require("os");
 const app = express();
 const port = 3000;
+
+console.log("Db user : "+ process.env.DATABASE_URL);
 
 app.use(express.static('static'));  // Serve static files from the 'static' directory
 
