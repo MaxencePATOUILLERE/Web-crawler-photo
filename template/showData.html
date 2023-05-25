@@ -13,7 +13,7 @@
 <div id="image-container"></div>
 
 <script>
-    fetch('unique_urls.txt')
+    fetch('/unique_urls.txt')
         .then(response => response.text())
         .then(data => {
             const urls = data.split('\n');
