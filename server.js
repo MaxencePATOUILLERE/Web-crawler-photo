@@ -1,19 +1,31 @@
 const express = require('express');
-const {getEnvironmentData} = require("os");
+const { Pool } = require('pg');
+const { resetTable, insertUrl } = require('./database');
+
 const app = express();
 const port = 3000;
 
-console.log("Db user : "+ process.env.DATABASE_URL);
+const pool = new Pool({
+    user: 'user',
+    host: 'localhost',
+    database: 'mydatabase',
+    password: 'postgres',
+    port: 5432,
+});
 
-app.use(express.static('static'));  // Serve static files from the 'static' directory
+app.use(express.static('static'));
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/showData.html');
+app.get('/', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT url FROM images');
+        const urls = result.rows.map(row => row.url);
+        res.send(urls);
+    } catch (error) {
+        console.error('Une erreur s\'est produite lors de la récupération des URLs des images :', error);
+        res.status(500).send('Erreur lors de la récupération des URLs des images');
+    }
 });
 
 app.listen(port, () => {
-    console.log(`Server is listening at http://localhost:${port}`);
+    console.log(`Serveur Express en écoute à l'adresse http://localhost:${port}`);
 });
-
-// TODO : link database to the result of crawling
-// TODO : add input to chang the site to crawl

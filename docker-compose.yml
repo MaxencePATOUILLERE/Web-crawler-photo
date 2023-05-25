@@ -1,14 +1,16 @@
 version: '3'
 services:
-  
-db:
+  db:
     image: postgres
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
   app:
     build: .
     ports:
@@ -17,5 +19,7 @@ db:
       DATABASE_URL: postgres://user:password@db/mydatabase
     depends_on:
       - db
+
 volumes:
   postgres_data:
+    driver: local

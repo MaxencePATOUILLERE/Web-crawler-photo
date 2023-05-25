@@ -12,8 +12,8 @@ async function resetTable() {
     await pool.query('DROP TABLE IF EXISTS images');
     await pool.query(`
         CREATE TABLE images (
-            id SERIAL PRIMARY KEY,
-            url TEXT NOT NULL
+                                id SERIAL PRIMARY KEY,
+                                url TEXT NOT NULL
         )
     `);
 }

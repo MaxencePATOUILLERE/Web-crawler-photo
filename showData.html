@@ -13,10 +13,9 @@
 <div id="image-container"></div>
 
 <script>
-    fetch('image_urls.txt')
-        .then(response => response.text())
-        .then(data => {
-            const urls = data.split('\n');
+    fetch('/')
+        .then(response => response.json())
+        .then(urls => {
             const container = document.getElementById('image-container');
             for (const url of urls) {
                 const img = document.createElement('img');
