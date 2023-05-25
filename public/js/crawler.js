@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 async function crawl(url) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
     let urls = [];
     let crawledUrls = [];
