@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Viewer</title>
+  <style>
+    img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  </style>
+</head>
+<body>
+<div id="image-container"></div>
+<script>
+  fetch('/image-urls')
+          .then(response => response.json())
+          .then(data => {
+            const urls = data.map(item => item.url);
+            const container = document.getElementById('image-container');
+            for (const url of urls) {
+              const img = document.createElement('img');
+              img.src = url;
+              container.appendChild(img);
+            }
+          })
+          .catch(error => console.error(error));
+</script>
+</body>
+</html>

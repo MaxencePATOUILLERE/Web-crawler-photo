@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebCrawler Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+        #container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        #url {
+            display: block;
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 18px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        #submit-button {
+            display: block;
+            width: 100%;
+            height: 60px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            box-sizing: border-box;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #submit-button:hover {
+            background-color: #45a049;
+        }
+        #progress-bar-container {
+            width: 100%;
+            background-color: #ddd;
+            padding: 2px;
+            margin-top: 20px;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h1>WebCrawler Interface</h1>
+    <form action="" method="get">
+        <input type="url" id="url" name="url" placeholder="https://www.example.com" required>
+        <input type="submit" value="Crawler" id="submit-button">
+    </form>
+</div>
+</body>
+</html>
