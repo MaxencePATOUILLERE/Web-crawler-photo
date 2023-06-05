@@ -8,7 +8,7 @@ const removeDuplicateUrls = require('./filter_url');
 const path = require('path');
 const uuid = require('uuid');
 
-const responses = {}; // Ajoutez cette ligne pour définir la variable responses
+const responses = {};
 
 app.use(express.static('crawling_responce'));
 
